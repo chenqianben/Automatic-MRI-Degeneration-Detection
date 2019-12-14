@@ -1,0 +1,2 @@
+# Development-of-automated-analysis-tool-for-quantitative-MRI-images-in-the-assessment-of-lumbar-disc-
+Regarding the time-consuming analysis of data and opportunity offered with the deep learning approach, the objective of this project is to develop an automated-analysis program of MRI images based on sheep image database acquired during manually-preliminary study. In particular, the developed methods will contribute to the segmentation of the disc within the database.
