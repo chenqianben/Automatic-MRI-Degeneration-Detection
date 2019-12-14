@@ -1,6 +1,9 @@
-# Project MRI Segmentation
+Title
+=========================
 
-Contexte
+Development of automated-analysis tool for quantitative MRI images in the assessment of lumbar disc degeneration in sheep
+
+Context
 =========================
 
 Discogenic low back pain, named discogenic lombalgia, is a major public health concern that is
@@ -17,4 +20,18 @@ to characterize the DDD in various species, our preliminary data strongly sugges
 using the variable flip-angle could be a promising tool to specifically assess the early events of
 DDD in an ovine model and maybe in human patient.
 
-Regarding the time-consuming analysis of data and opportunity offered with the deep learning approach, the objective of this project is to develop an automated-analysis program of MRI images based on sheep image database acquired during manually-preliminary study. In particular, the developed methods will contribute to the segmentation of the disc within the database.
+Objectives
+=========================
+
+Regarding the time-consuming analysis of data and opportunity offered with the deep learning
+approach, the objective of this project is to develop an automated-analysis program of MRI
+images based on sheep image database acquired during manually-preliminary study. In particular,
+the developed methods will contribute to the segmentation of the disc within the database.
+
+Kerwords
+=========================
+
+Intervertebral disc, disc degeneration, MRI sequences, MRI mapping, automated-analysis, image
+segmentation, machine learning.
+
+
