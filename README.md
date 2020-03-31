@@ -39,7 +39,7 @@ segmentation, machine learning.
 
 - [__Part2__] __Segmentation__
   - Input: Patchs where the ROIs are located
-  - Output: Salary prediction with convolutional neural networks; explaining network predictions.
+  - Output: The three ROIs
   - Tool: U-net for segmentation
   
 - [__Part2__] __Registration__
