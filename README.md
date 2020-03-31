@@ -46,7 +46,7 @@ segmentation, machine learning.
 - [__Part2__] __Registration__
   - Input: Source image ROIs location 
   - Output: Target image ROIs location
-  - Tool: Spatial Tranformation Networks
+  - Tool: Spatial Tranformation Networks/ Manual ROI location(semi-automatic)
 
 # Notes
 - The train process and the pipiline are in Juppyter Notebook for educative demonstration. 
