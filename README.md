@@ -49,4 +49,5 @@ segmentation, machine learning.
   - Tool: Spatial Tranformation Networks
 
 # Notes
-The train process and the pipilines are in Juppyter Notebook for educative demonstration. 
+- The train process and the pipilines are in Juppyter Notebook for educative demonstration. 
+- The PIPILINE.ipynb collects all the parts.
