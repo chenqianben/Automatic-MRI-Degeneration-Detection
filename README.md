@@ -24,8 +24,8 @@ images based on sheep image database acquired during manually-preliminary study.
 Given a complete source image (T1 SAG or T2 SAG) that is obviously clear without much noise, the program
 aims to locate the three ROIs and make the registration to find the corresponding ROIs in the target image(T1, T2 or T2*) where there is much noise but the values can refer to the spinal degenerative level.
 
-![image](http://github.com/chenqianben/images//src_tgt_images.PNG)
-![image](http://github.com/chenqianben/images//three_ROIs.PNG)
+![image](http://github.com/chenqianben/Project-MRI-Segmentation/images/src_tgt_images.PNG)
+![image](http://github.com/chenqianben/Project-MRI-Segmentation/images/three_ROIs.PNG)
 
 # Kerwords
 Intervertebral disc, disc degeneration, MRI sequences, MRI mapping, automated-analysis, image
