@@ -21,7 +21,7 @@ Regarding the time-consuming analysis of data and opportunity offered with the d
 approach, the objective of this project is to develop an automated-analysis program of MRI
 images based on sheep image database acquired during manually-preliminary study. 
 
-Given a complete source image (T1 SAG or T2 SAG) that is obviously clear without much noise, the program
+Given a complete source image (T1 SAG or T2 SAG) that is technically clear without much noise, the program
 aims to locate the three ROIs and make the registration to find the corresponding ROIs in the target image(T1, T2 or T2*) where there is much noise but the values can refer to the spinal degenerative level.
 
 ![image1](https://github.com/chenqianben/Project-MRI-Segmentation/tree/master/images/src_tgt_images.PNG)
