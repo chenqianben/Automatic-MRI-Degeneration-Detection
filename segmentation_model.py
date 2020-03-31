@@ -1,111 +1,67 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-#Layers
-from keras.layers import Input, Dense, Activation, ZeroPadding2D, BatchNormalization, Flatten, Conv2D, Conv2DTranspose
-from keras.layers import AveragePooling2D, MaxPooling2D, Dropout, GlobalMaxPooling2D, GlobalAveragePooling2D
-from keras.layers import Lambda                       #Lambda wraps arbitrary expression as a Layer object.
-from keras.layers.advanced_activations import LeakyReLU
-from keras.layers.merge import add, concatenate
+from tensorflow.keras import layers,Model
+import tensorflow.keras as keras
+import tensorflow as tf
+from tensorflow.keras import backend as K
 
 #To save and reload models
-from keras.models import load_model, Model
-from keras.callbacks import EarlyStopping, ModelCheckpoint
-from keras.utils import multi_gpu_model, plot_model
+from tensorflow.keras.models import load_model, Model
+from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
+from tensorflow.keras.utils import multi_gpu_model, plot_model
 
 #For data augmentation
-from keras.preprocessing.image import ImageDataGenerator 
+from tensorflow.keras.preprocessing.image import ImageDataGenerator 
 
-import tensorflow as tf
-from keras import backend as K 
-import keras
 import numpy as np
 
 from utils import img_height, img_width
 
 
-# In[2]:
-
-
-def block(inp, output_channels, k_size, padding = 'same', activation = 'relu', kernel_initializer = 'he_normal', if_pooling = True):
-    inp = Conv2D(output_channels, k_size, padding = padding, activation = activation, kernel_initializer = kernel_initializer)(inp)
-    inp = Conv2D(output_channels, k_size, padding = padding, activation = activation, kernel_initializer = kernel_initializer)(inp)
-    if if_pooling:
-        inp = MaxPooling2D(k_size, strides = (2,2), padding = padding)(inp)
-    return inp 
-
-
-# In[8]:
-
-
-# Design our model architecture here
-def unet_model(input_shape):
-    n_ch_exps = [3, 4, 5, 6, 7, 7]
-    kernels = (5, 5)
+# 定义u-net
+def unet_model(pretrained_weights = None,input_size = (256,256,1)):
+    inputs = keras.Input(input_size)
+    conv1 = layers.Conv2D(16, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(inputs)
+    conv1 = layers.Conv2D(16, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv1)
+    pool1 = layers.MaxPooling2D(pool_size=(2, 2))(conv1)   
     
-    if K.image_data_format() == 'channels_first':
-        ch_axis = 1
-        input_shape = (1, input_shape[0], input_shape[1])
-    elif K.image_data_format() == 'channels_last':
-        ch_axis = 3
-    input_shape = (input_shape[0], input_shape[1], 1)
-
-    inp = Input(shape=input_shape)
-    encodeds = []
-
-    # encoder
-    enc = inp
-    for l_idx, n_ch in enumerate(n_ch_exps):
-        enc = Conv2D(2 ** n_ch, kernels,
-                     strides=(2, 2), padding='same',
-                     kernel_initializer='he_normal')(enc)
-        #enc = BatchNormalization()(enc)
-        enc = LeakyReLU(name='encoded_{}'.format(l_idx),
-                        alpha=0.2)(enc)
-        encodeds.append(enc)
-
-    # decoder
-    dec = enc
-    decoder_n_chs = n_ch_exps[::-1][1:]
-    for l_idx, n_ch in enumerate(decoder_n_chs):
-        l_idx_rev = len(n_ch_exps) - l_idx - 2  
-        #dec = Conv2D(2 ** n_ch, kernels,padding='same',kernel_initializer='he_normal')(dec)
-        dec = Conv2DTranspose(2 ** n_ch, kernels,
-                              strides=(2, 2), padding='same',
-                              kernel_initializer='he_normal',
-                              activation='relu',
-                              name='decoded_{}'.format(l_idx))(dec)
-        dec = concatenate([dec, encodeds[l_idx_rev]],
-                          axis=ch_axis)
-
-    outp = Conv2DTranspose(1, kernels,
-                           strides=(2, 2), padding='same',
-                           kernel_initializer='glorot_normal',
-                           activation='sigmoid',
-                           name='decoded_{}'.format(l_idx + 1))(dec)
-
-    unet = Model(inputs=inp, outputs=outp)
+    conv2 = layers.Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool1)
+    conv2 = layers.Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv2)
+    pool2 = layers.MaxPooling2D(pool_size=(2, 2))(conv2)   
     
-    return unet
+    conv3 = layers.Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool2)
+    conv3 = layers.Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv3)
+    pool3 = layers.MaxPooling2D(pool_size=(2, 2))(conv3)  
+    
+    conv4 = layers.Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(pool3)
+    conv4 = layers.Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv4)  
+    drop4 = layers.Dropout(0.5)(conv4)
+    pool4 = layers.MaxPooling2D(pool_size=(2, 2))(drop4)   
 
+    up7 = layers.Conv2D(64, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(layers.UpSampling2D(size = (2,2))(pool4))
+    merge7 = layers.concatenate([conv4,up7], axis = 3)   
+    conv7 = layers.Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge7)
+    conv7 = layers.Conv2D(128, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv7)
 
-# In[9]:
+    up8 = layers.Conv2D(64, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(layers.UpSampling2D(size = (2,2))(conv7))
+    merge8 = layers.concatenate([conv3,up8], axis = 3)   
+    conv8 = layers.Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge8)
+    conv8 = layers.Conv2D(64, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv8)
 
+    up9 = layers.Conv2D(32, 2, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(layers.UpSampling2D(size = (2,2))(conv8))
+    merge9 = layers.concatenate([conv2,up9], axis = 3)  
+    conv9 = layers.Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(merge9)
+    conv9 = layers.Conv2D(32, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
+    conv9 = layers.Conv2D(2, 3, activation = 'relu', padding = 'same', kernel_initializer = 'he_normal')(conv9)
+    conv10 = layers.Conv2D(1, 1, activation = 'sigmoid')(conv9)  
+    
+    model = Model(inputs = inputs, outputs = conv10)
 
-# Custom IoU metric
-def mean_iou(y_true, y_pred):
-    prec = []
-    for t in np.arange(0.5, 1.0, 0.05):                       
-        y_pred_ = tf.to_int32(y_pred > t)
-        score, up_opt = tf.metrics.mean_iou(y_true, y_pred_, 2)
-        K.get_session().run(tf.local_variables_initializer()) 
-        with tf.control_dependencies([up_opt]):
-            score = tf.identity(score)
-        prec.append(score)
-    return K.mean(K.stack(prec), axis=0)
+    model.compile(optimizer = keras.optimizers.Adam(lr = 1e-4), loss = 'binary_crossentropy', metrics = ['accuracy'])
+
+    if(pretrained_weights):
+        model.load_weights(pretrained_weights)
+
+    return model
+
 
 # Custom loss function
 def dice_coef(y_true, y_pred):
@@ -119,8 +75,14 @@ def costum_dice_loss(y_true, y_pred):
     return 0.5 * keras.losses.binary_crossentropy(y_true, y_pred) - dice_coef(y_true, y_pred)
 
 
+if __name__ == '__main__':
+    # Set some model compile parameters
+    optimizer = keras.optimizers.SGD(learning_rate=0.001,  decay=1e-6, momentum=0.9, nesterov=False)
+    loss      = costum_dice_loss
+    metrics   = [keras.metrics.MeanIoU(num_classes = 2)]
 
-
-
-
+    input_size = (img_height, img_width,1)
+    model = unet_model(input_size = input_size)
+    model.summary()
+    model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
