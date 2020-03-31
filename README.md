@@ -49,5 +49,5 @@ segmentation, machine learning.
   - Tool: Spatial Tranformation Networks
 
 # Notes
-- The train process and the pipilines are in Juppyter Notebook for educative demonstration. 
-- The PIPILINE.ipynb collects all the parts.
+- The train process and the pipiline are in Juppyter Notebook for educative demonstration. 
+- The **[PIPILINE.ipynb](https://github.com/chenqianben/Project-MRI-Segmentation/blob/master/PIPELINE.ipynb)** collects all the parts.
