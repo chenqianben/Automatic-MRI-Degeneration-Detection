@@ -1,5 +1,5 @@
 # Title
-Development of automated-analysis tool for quantitative MRI images in the assessment of lumbar disc degeneration in sheep
+Development of Automated-analysis Tool for Quantitative MRI Images in the Assessment of Lumbar Disc Degeneration in Sheep
 
 # Context
 Discogenic low back pain, named discogenic lombalgia, is a major public health concern that is
