@@ -1,11 +1,7 @@
 # Title
-=========================
-
 Development of automated-analysis tool for quantitative MRI images in the assessment of lumbar disc degeneration in sheep
 
 # Context
-=========================
-
 Discogenic low back pain, named discogenic lombalgia, is a major public health concern that is
 frequently associated with lumbar intervertebral disc degenerative disease (DDD). Numerous tools
 and animal models have been used to help us improve our understanding of the DDD physiopathology
@@ -21,17 +17,30 @@ using the variable flip-angle could be a promising tool to specifically assess t
 DDD in an ovine model and maybe in human patient.
 
 # Objectives
-=========================
-
 Regarding the time-consuming analysis of data and opportunity offered with the deep learning
 approach, the objective of this project is to develop an automated-analysis program of MRI
-images based on sheep image database acquired during manually-preliminary study. In particular,
-the developed methods will contribute to the segmentation of the disc within the database.
+images based on sheep image database acquired during manually-preliminary study. 
+
+Given a complete source image (T1 SAG or T2 SAG) that is obviously clear without much noise, the program
+aims to locate the three ROIs and make the registration to find the corresponding ROIs in the target image(T1, T2 or T2*) where there is much noise but the values can refer to the spinal degenerative level.
+
 
 # Kerwords
-=========================
-
 Intervertebral disc, disc degeneration, MRI sequences, MRI mapping, automated-analysis, image
 segmentation, machine learning.
 
+# Syllabus
+- [__Part1__] __Detection__
+  - Input: Complete source images (T1 SAG, T2 SAG)
+  - Output: Patchs where the ROIs are located
+  - Tool: CNN for traversal
 
+- [__Part2__] __Segmentation__
+  - Input: Patchs where the ROIs are located
+  - Output: Salary prediction with convolutional neural networks; explaining network predictions.
+  - Tool: U-net for segmentation
+  
+- [__Part2__] __Registration__
+  - Input: Source image ROIs location 
+  - Output: Target image ROIs location
+  - Tool: Spatial Tranformation Networks
