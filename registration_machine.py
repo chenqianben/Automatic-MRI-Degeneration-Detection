@@ -38,7 +38,7 @@ from utils import input_size, img_height, img_width
 # In[ ]:
 
 
-class semi_auto_registration():
+class Semi_auto_registration():
     def __init__(self, Y1_pred, Y2_pred, src_rois_axis_ens, src_input_size, 
                  ims_T1, ims_T2, ims_T2star, axis_ens_T1, axis_ens_T2, axis_ens_T2stare):
         self.Y1_pred = Y1_pred
