@@ -153,7 +153,7 @@ class Detection():
             print('Rois figures saved to {} successfully'.format(dir_rois))
         return rois_ens
                
-    def read_and_save_rois_axis(self, dir_rois):
+    def read_and_save_rois_axis(self, dir_rois=False):
         print(80 * "=")
         print('READING AND SAVING ROI AXIS')
         print(80 * "=")
