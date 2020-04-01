@@ -30,7 +30,7 @@ aims to locate the three ROIs and make the registration to find the correspondin
 
 # Kerwords
 Intervertebral disc, disc degeneration, MRI sequences, MRI mapping, automated-analysis, image
-segmentation, machine learning.
+segmentation, deep learning.
 
 # Syllabus
 - [__Part1__] __Detection__
