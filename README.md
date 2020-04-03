@@ -51,4 +51,4 @@ segmentation, deep learning.
 # Notes
 - The train process and the pipiline are in Juppyter Notebook for educative demonstration. 
 - The **[PIPILINE.ipynb](https://github.com/chenqianben/Project-MRI-Segmentation/blob/master/PIPELINE.ipynb)** collects all the parts.
-- You can also consult the project paper for detailed information. 
+- You can also consult the **[Project Paper](https://github.com/chenqianben/Automatic-MRI-Degeneration-Detection/blob/master/Project%20Paper.pdf)** for detailed information. 
