@@ -43,7 +43,7 @@ segmentation, deep learning.
   - Output: The three ROIs
   - Tool: U-net for segmentation
   
-- [__Part2__] __Registration__
+- [__Part3__] __Registration__
   - Input: Source image ROIs location 
   - Output: Target image ROIs location
   - Tool: Spatial Tranformation Networks/ Manual ROI location(semi-automatic)
