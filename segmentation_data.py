@@ -71,7 +71,7 @@ def make_labels(axis_ens, img_height, img_width, tol=0):
 
 
 dir_labels = r'.\segmentation_data'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\ROI detected'
+dir_data = r'.\ROI detected'
 
 def read_data(dir_labels, dir_data):
     X_train = []
@@ -141,7 +141,7 @@ X_show = X_show/X_show.max()
 
 
 dir_labels = r'.\segmentation_data'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\ROI detected'
+dir_data = r'.\ROI detected'
 def read_data_test(dir_labels,dir_data):
     
     num = []
