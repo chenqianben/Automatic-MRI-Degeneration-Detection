@@ -1,2 +1,0 @@
-model_checkpoint_path: "save_model_weights_36x36.ckpt"
-all_model_checkpoint_paths: "save_model_weights_36x36.ckpt"
