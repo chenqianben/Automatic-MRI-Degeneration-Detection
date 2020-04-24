@@ -29,7 +29,7 @@ if_modify_size = True
 
 
 # read training data of dcm files
-root_path = 'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_brut'
+root_path = r'.\IRM_brut'
 ims_T1,_,ims_T2,_,_,pos,_,_,_ = read_data(root_path, if_normalized=True)
 
 # 1. read positive labels
@@ -75,12 +75,12 @@ def read_pos_labels(dir_labels, dir_data, type_data=1, if_modify_size = True, if
     val_labels = np.concatenate(val_labels, axis=0)
     return train_labels, val_labels
 
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\positive ROI\T1 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\positive ROI\T1 SAG'
+dir_data = r'.\IRM_process'
 train_pos_labels_T1, val_pos_labels_T1 = read_pos_labels(dir_labels, dir_data, 1,if_modify_size,if_normalized)
              
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\positive ROI\T2 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\positive ROI\T2 SAG'
+dir_data = r'.\IRM_process'
 train_pos_labels_T2, val_pos_labels_T2 = read_pos_labels(dir_labels, dir_data, 2,if_modify_size,if_normalized)
 
 
@@ -145,12 +145,12 @@ def read_neg_labels(dir_labels, dir_data, type_data=1, if_modify_size = True, if
     train_labels = np.concatenate(train_labels, axis=0)
     val_labels = np.concatenate(val_labels, axis=0)
     return train_labels, val_labels
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\negative ROI\T1 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\negative ROI\T1 SAG'
+dir_data = r'.\IRM_process'
 train_neg_labels_T1s, val_neg_labels_T1s = read_neg_labels(dir_labels, dir_data, 1,if_modify_size,if_normalized)
              
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\negative ROI\T2 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\negative ROI\T2 SAG'
+dir_data = r'.\IRM_process'
 train_neg_labels_T2s, val_neg_labels_T2s = read_neg_labels(dir_labels, dir_data, 2,if_modify_size,if_normalized)
 
 
@@ -282,8 +282,8 @@ dist = label_size[0]//3
 
 # 注意：negative labels由三部分组成
 # T1
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\positive ROI\T1 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\positive ROI\T1 SAG'
+dir_data = r'.\IRM_process'
 # random neg labels
 train_neg_labels_T1, val_neg_labels_T1 = get_neg_labels(dir_labels, dir_data, 1, 3,if_modify_size,if_normalized)
 # random neg neighborhood labels and reducection size
@@ -302,8 +302,8 @@ train_neg_labels_T1 = train_neg_labels_T1[random.sample(list(np.arange(train_neg
 val_neg_labels_T1 = val_neg_labels_T1[random.sample(list(np.arange(val_neg_labels_T1.shape[0])),val_pos_labels_T1.shape[0])]
 
 # T2
-dir_labels = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\positive ROI\T2 SAG'
-dir_data = r'D:\课件\ECN第二年DATASIM\Projet\projet mapping segmentation\IRM_process'
+dir_labels = r'.\positive ROI\T2 SAG'
+dir_data = r'.\IRM_process'
 # random neg labels
 train_neg_labels_T2, val_neg_labels_T2 = get_neg_labels(dir_labels, dir_data, 2, 7,if_modify_size,if_normalized)
 # random neg neighborhood labels and reducection size
